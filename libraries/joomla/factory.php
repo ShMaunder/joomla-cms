@@ -221,7 +221,11 @@ abstract class JFactory
 				$instance = JUser::getInstance();
 			}
 		}
-		elseif ($instance->id != $id)
+		elseif (!$instance->id)
+		{
+			$instance = JUser::getInstance($id);
+		}
+		elseif (is_numeric($id) ? ($instance->id != $id) : ($instance->username != $id))
 		{
 			$instance = JUser::getInstance($id);
 		}
